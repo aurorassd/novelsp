@@ -1,15 +1,100 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="ja">
-
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Novel Architect</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YouTube Advanced Player</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
-
 <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.jsx"></script>
-</body>
+    <div class="app-container">
+        <header class="app-header">
+            <h1>YouTube Advanced Player</h1>
+            <div class="url-input-container">
+                <input type="text" id="video-url" placeholder="YouTube URLを入力 (例: https://www.youtube.com/watch?v=...)" aria-label="動画URL">
+                <button id="load-btn" class="btn btn-primary">再生</button>
+            </div>
+        </header>
 
+        <main class="main-content">
+            <div class="player-section">
+                <div id="player-container" class="player-wrapper">
+                    <div id="player"></div>
+                </div>
+                
+                <div class="controls-container">
+                    <!-- Main Transport Controls -->
+                    <div class="transport-controls">
+                        <button id="rewind-btn" class="btn btn-icon" title="巻き戻し (5秒)"><span class="icon">⏪</span></button>
+                        <button id="skip-back-btn" class="btn btn-icon" title="10秒戻る"><span class="icon">⏮️</span></button>
+                        <button id="play-pause-btn" class="btn btn-large" title="再生/一時停止"><span class="icon">▶️</span></button>
+                        <button id="skip-fwd-btn" class="btn btn-icon" title="10秒進む"><span class="icon">⏭️</span></button>
+                        <button id="forward-btn" class="btn btn-icon" title="早送り (5秒)"><span class="icon">⏩</span></button>
+                    </div>
+
+                    <!-- Speed & Loop Controls -->
+                    <div class="secondary-controls">
+                        <div class="speed-control">
+                            <label for="speed-select">速度:</label>
+                            <select id="speed-select">
+                                <option value="0.25">0.25x</option>
+                                <option value="0.5">0.5x</option>
+                                <option value="1.0" selected>1.0x</option>
+                                <option value="1.25">1.25x</option>
+                                <option value="1.5">1.5x</option>
+                                <option value="2.0">2.0x</option>
+                            </select>
+                        </div>
+                        
+                        <div class="ab-repeat-control">
+                            <div class="ab-status">
+                                <span id="a-marker" class="marker">A: <span class="time">--:--</span></span>
+                                <span id="b-marker" class="marker">B: <span class="time">--:--</span></span>
+                            </div>
+                            <div class="ab-buttons">
+                                <button id="set-a-btn" class="btn btn-sm">A地点</button>
+                                <button id="set-b-btn" class="btn btn-sm">B地点</button>
+                                <button id="clear-ab-btn" class="btn btn-sm btn-danger">解除</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <aside class="sidebar">
+                <div class="panel bookmarks-panel">
+                    <div class="panel-header">
+                        <h2>お気に入り地点</h2>
+                        <button id="add-bookmark-btn" class="btn btn-sm btn-outline">+ 追加</button>
+                    </div>
+                    <div id="bookmarks-list" class="list-container">
+                        <!-- Bookmarks will be injected here -->
+                        <div class="empty-state">保存された地点はありません</div>
+                    </div>
+                </div>
+
+                <div class="panel history-panel">
+                    <div class="panel-header">
+                        <h2>再生履歴</h2>
+                        <button id="clear-history-btn" class="btn btn-sm btn-text">クリア</button>
+                    </div>
+                    <div id="history-list" class="list-container">
+                        <!-- History will be injected here -->
+                        <div class="empty-state">履歴はありません</div>
+                    </div>
+                </div>
+            </aside>
+        </main>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/utils.js"></script>
+    <script src="js/storage.js"></script>
+    <script src="js/player.js"></script>
+    <script src="js/ui.js"></script>
+    <script src="js/app.js"></script>
+</body>
 </html>
